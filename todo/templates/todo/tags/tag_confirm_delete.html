@@ -1,0 +1,16 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<h1 class="display-5 fw-bold">Delete tag</h1>
+
+<div class="card p-4 shadow-sm mt-3">
+  <p class="mb-3">Are you sure you want to delete:</p>
+  <div class="fs-5 fw-semibold mb-4">{{ object.name }}</div>
+
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger btn-lg" type="submit">Delete</button>
+    <a class="btn btn-outline-secondary btn-lg" href="{% url 'todo:tag-list' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
