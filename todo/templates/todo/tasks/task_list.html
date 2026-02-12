@@ -1,0 +1,56 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-4">
+  <h1 class="display-4 fw-bold mb-0">TODO list</h1>
+  <a class="btn btn-primary btn-lg" href="{% url 'todo:task-add' %}">Add task</a>
+</div>
+
+{% for task in tasks %}
+  <div class="task-card border-top py-4">
+    <div class="d-flex justify-content-between align-items-start gap-3">
+      <div class="flex-grow-1">
+        <div class="fs-4 fw-semibold">
+          {{ task.content }}
+          {% if task.is_done %}
+            <span class="status status-done">Done</span>
+          {% else %}
+            <span class="status status-notdone">Not done</span>
+          {% endif %}
+        </div>
+
+        <div class="text-muted mt-2">
+          Created: {{ task.created_at|date:"F j, Y, P" }}.
+          {% if task.deadline %}
+            <span class="deadline">Deadline: {{ task.deadline|date:"F j, Y, P" }}.</span>
+          {% endif %}
+        </div>
+
+        <div class="mt-2 text-muted">
+          Tags:
+          {% for tag in task.tags.all %}
+            <span class="badge text-bg-light border">{{ tag.name }}</span>
+          {% empty %}
+            <span class="text-secondary">—</span>
+          {% endfor %}
+          <a class="ms-2" href="{% url 'todo:task-update' task.pk %}">Update</a>
+          <a class="ms-2 text-danger" href="{% url 'todo:task-delete' task.pk %}">Delete</a>
+        </div>
+      </div>
+
+      <div class="text-end">
+        <form method="post" action="{% url 'todo:task-toggle' task.pk %}">
+          {% csrf_token %}
+          {% if task.is_done %}
+            <button class="btn btn-secondary btn-lg" type="submit">Undo</button>
+          {% else %}
+            <button class="btn btn-success btn-lg" type="submit">Complete</button>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>
+{% empty %}
+  <p class="text-muted">No tasks yet. Click “Add task”.</p>
+{% endfor %}
+{% endblock %}

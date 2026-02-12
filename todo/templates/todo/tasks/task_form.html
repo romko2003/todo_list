@@ -1,0 +1,44 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-4">
+  <h1 class="display-5 fw-bold mb-0">
+    {% if object %}Update task{% else %}Add task{% endif %}
+  </h1>
+  <a class="btn btn-outline-secondary" href="{% url 'todo:home' %}">Back</a>
+</div>
+
+<form method="post" class="card p-4 shadow-sm">
+  {% csrf_token %}
+
+  <div class="mb-3">
+    <label class="form-label fw-semibold">Content</label>
+    {{ form.content }}
+    {% for error in form.content.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-semibold">Deadline (optional)</label>
+    {{ form.deadline }}
+    {% for error in form.deadline.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-semibold">Tags</label>
+    {{ form.tags }}
+    <div class="form-text">Hold Ctrl/⌘ to select multiple tags.</div>
+    {% for error in form.tags.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="d-flex gap-2">
+    <button class="btn btn-primary btn-lg" type="submit">Save</button>
+    <a class="btn btn-outline-secondary btn-lg" href="{% url 'todo:home' %}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+.task-card:first-child {
+  border-top: none !important;
+}
+
+.status {
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+.status-notdone {
+  color: #dc3545; /* red */
+}
+
+.status-done {
+  color: #198754; /* green */
+}
+
+.deadline {
+  color: #8b0000;
+  font-weight: 600;
+}
