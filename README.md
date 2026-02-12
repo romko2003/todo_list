@@ -72,12 +72,3 @@ Tags page /tags/
 Add/Update forms for Task and Tag
 
 Delete confirmation pages
-
-
----
-
-Якщо хочеш “максимальний флекс” для перевіряючого — скажи, і я додам у README:
-- бейджі,  
-- короткий demo section,  
-- pre-commit/flake8 (опційно),  
-- і команди для швидкого старту.
